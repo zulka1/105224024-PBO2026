@@ -12,6 +12,9 @@ public class App {
         hero[0].berlatih();
         hero[1].berlatih();
 
+        hero[0].terimaSerangan(50);
+        hero[1].terimaSerangan(50);
+
         hero[0].display();
         hero[1].display();
     }

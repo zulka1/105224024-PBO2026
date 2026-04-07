@@ -23,7 +23,7 @@ public class Hero {
 
     }
 
-    void terimaSerangan(double damage) {
+    public void terimaSerangan(double damage) {
         this.health -= damage;
         System.out.println("Karakter menerima serangan sebesar " + damage);
     }
