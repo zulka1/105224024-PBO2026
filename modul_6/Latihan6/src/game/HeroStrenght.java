@@ -9,7 +9,7 @@ public class HeroStrenght extends Hero {
     }
 
     @Override
-    void display() {
+    public void display() {
         System.out.println("Nama: " + this.nama);
         System.out.println("Health: " + this.health);
         System.out.println("Attack Power: " + this.attackPower);
@@ -17,7 +17,7 @@ public class HeroStrenght extends Hero {
     }
 
     @Override
-    void terimaSerangan(double damage) {
+    public void terimaSerangan(double damage) {
         this.health -= (damage * 0.50);
         System.out.println("Karakter menerima serangan sebesar " + damage);
     }
