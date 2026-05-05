@@ -23,9 +23,9 @@ public class App {
 
 /*
 NO. 5
-Eror "cannot finc symbol" dapat terjadi karena referensi alat bertipe PerangkatPintar. 
+Error "cannot finc symbol" dapat terjadi karena referensi alat bertipe PerangkatPintar. 
 Compiler hanya tahu method yang ada di PerangkatPintar dan aturKecerahan() tidak ada di sana. 
-Jadi compiler langsung tolak, meski objek aslinya LampuPintar.
+Jadi compiler langsung tolak, walaupun objek aslinya LampuPintar.
 
 ini dapat diperbaiki dengan cara menggunakan casting:
 PerangkatPintar alat = new LampuPintar();
