@@ -31,7 +31,7 @@ public class App {
         String is[] = {"1111", "2312", "4353", "2357"};
         int i = 0;
         for (Anggota a : set) {
-            String data = a.getIdAnggota() + " # " + map.get(is[i]).getJudul();
+            String data = a.getIdAnggota() + " # " + is[i];
             if (a.tipe.equals("Dosen")) {
                 antrean.addFirst(data);
             } else {
@@ -51,7 +51,7 @@ public class App {
             String idAnggota = bagian[0].trim();
             String isbn = bagian[1].trim();
 
-            System.out.println("Memproses: idAnggota=" + idAnggota + " | isbn= " + isbn);
+            System.out.println("Memproses: idAnggota=" + idAnggota + ", isbn= " + isbn);
 
             Anggota anggotaDitemukan = null;
             for (Anggota a : set) {
@@ -83,6 +83,10 @@ public class App {
         for (Map.Entry<String, String> entry : bukuDipinjam.entrySet()) {
             System.out.println("  " + entry.getKey() + " | " + map.get(entry.getKey()).getJudul() + " | " + entry.getValue());
         }
+
+        System.out.println("=================================================");
+
+        bukuDipinjam.entrySet().stream().sorted((e1, e2) -> map.get(e1.getKey()).getJudul().compareTo(map.get(e2.getKey()).getJudul())).forEach(e -> System.out.println("  " + map.get(e.getKey()).getJudul()  + " | isbn=" + e.getKey() + " | Dipinjam: " + e.getValue()));
 
     }
 }
