@@ -25,9 +25,9 @@ public abstract class Rekening implements Otorisasi {
         this.saldo = saldoAwal;
         this.pin = pin;
 
-        // BukuMutasi langsung dibuat di sini, bukan dikirim dari luar.
-        this.bukuMutasi = new BukuMutasi(nomorRekening);
-        this.bukuMutasi.catatAktivitas("Rekening dibuka dengan saldo awal Rp" + String.format("%,.0f", saldoAwal));
+        
+        this.bukuMutasi = new BukuMutasi(nomorRekening);        // BukuMutasi langsung dibuat di sini, bukan dikirim dari luar
+        this.bukuMutasi.catatAktivitas("Rekening dibuka dengan saldo awal Rp" + saldoAwal);
     }
 
     // Getter & setter
@@ -47,68 +47,36 @@ public abstract class Rekening implements Otorisasi {
         return bukuMutasi;
     }
 
-    // ===== OTORISASI: implementasi verifikasiPIN dari interface =====
-
-    /**
-     * Implementasi verifikasiPIN() dari interface Otorisasi.
-     * Membandingkan PIN input dengan PIN tersimpan (secara aman).
-     * 
-     * @param pinInput PIN yang dimasukkan pengguna
-     * @return true jika cocok
-     */
     @Override
-    public boolean verifikasiPIN(String pinInput) {
-        return this.pin.equals(pinInput);
+    public boolean verifikasiPIN(String pinInput) {         //implementasi verifikasiPIN dari interface
+        return this.pin.equals(pinInput);       //true jika cocok
     }
 
-    // ===== ENKAPSULASI: Metode untuk memodifikasi saldo (satu-satunya pintu masuk) =====
-
-    /**
-     * Menambah saldo rekening (setor dana).
-     * Ini satu-satunya cara menambah saldo — menjamin integritas data.
-     * 
-     * @param jumlah jumlah uang yang disetor (harus positif)
-     */
-    public void setor(double jumlah) {
-        if (jumlah <= 0) {
-            System.out.println("  [ERROR] Jumlah setoran harus lebih dari 0.");
+    public void setor(double jumlah) {          // Metode setor 
+        if (jumlah <= 0) {          // Validasi apakah jumlah setoran lebih dari 0
+            System.out.println("Jumlah setoran harus lebih dari 0.");
             return;
         }
         saldo += jumlah;
-        System.out.println("  Setoran berhasil. Saldo bertambah Rp" + String.format("%,.0f", jumlah));
-        // Catat ke buku mutasi (komposisi — akses internal)
-        bukuMutasi.catatAktivitas("SETOR", jumlah, saldo);
+        System.out.println("  Setoran berhasil. Saldo bertambah Rp" + jumlah);
+        bukuMutasi.catatAktivitas("Setor", jumlah, saldo);      // Catat ke buku mutasi (komposisi — akses internal)
     }
 
-    /**
-     * Metode tarik() — ABSTRACT karena setiap jenis rekening punya aturan penarikan berbeda.
-     * 
-     * Konsep OOP: ABSTRAKSI + POLIMORFISME
-     * RekeningReguler akan override ini dengan potongan biaya admin.
-     * RekeningPrioritas akan override ini dengan cek batas minimum ketat.
-     * 
-     * @param jumlah jumlah uang yang ingin ditarik
+    /*
+    Metode abstract tarik() 
+    metode abstarct digunakan karena setiap jenis rekening punya aturan penarikan berbeda.
      */
     public abstract void tarik(double jumlah);
 
-    /**
-     * Helper protected: melakukan pengurangan saldo aktual.
-     * Hanya bisa diakses subclass, bukan dari luar.
-     * Dipanggil setelah validasi masing-masing subclass.
-     * 
-     * @param jumlah total jumlah yang dikurangkan dari saldo (sudah termasuk biaya jika ada)
-     */
-    protected void kurangiSaldo(double jumlah) {
+    protected void kurangiSaldo(double jumlah) {    // Metode untuk melakukan pengurangan saldo aktual
         saldo -= jumlah;
     }
 
-    /**
-     * Menampilkan info rekening secara ringkas.
-     */
+    // Menampilkan info rekening secara ringkas.
     public void tampilkanInfo() {
-        System.out.println("  Nomor Rekening : " + nomorRekening);
-        System.out.println("  Nama Pemilik   : " + namaPemilik);
-        System.out.println("  Jenis Rekening : " + getClass().getSimpleName());
-        System.out.println("  Saldo          : Rp" + String.format("%,.0f", saldo));
+        System.out.println("Nomor Rekening : " + nomorRekening);
+        System.out.println("Nama Pemilik   : " + namaPemilik);
+        System.out.println("Jenis Rekening : " + getClass().getSimpleName());
+        System.out.println("Saldo          : Rp" + saldo);
     }
 }

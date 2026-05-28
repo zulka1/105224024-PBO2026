@@ -15,12 +15,8 @@ public class BukuMutasi {
         // Output berupa nomor rekening, jenis transaksi, nominal, dan saldo akhir
     }
 
-    /**
-     * Overload: mencatat aktivitas non-keuangan (tanpa nominal/saldo)
-     * 
-     * @param keterangan keterangan aktivitas
-     */
+    // Mencatat aktivitas tanpa nominal
     public void catatAktivitas(String keterangan) {
-        System.out.println("  [MUTASI - " + nomorRekening + "] " + keterangan);
+        System.out.println("MUTASI - " + nomorRekening + " | " + keterangan);
     }
 }
